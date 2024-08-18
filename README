@@ -1,0 +1,64 @@
+Personal Finance Tracker
+Description
+The Personal Finance Tracker is a Python-based application designed to help you keep track of your financial transactions. The tracker allows users to record and categorize their transactions, analyze totals within specified date ranges or other criteria, and visualize this data using graphs. It's a straightforward and customizable tool for managing your finances.
+
+Features
+Transaction Logging: Easily log financial transactions with date, category, and description.
+Data Analysis: Tally totals within specific date ranges or by categories.
+Visualization: Project your financial data on a graph for better insights.
+Requirements
+Python 3.x
+pandas library
+matplotlib library
+You can install the required libraries using pip:
+
+bash
+Copy code
+pip install pandas matplotlib
+How to Use
+Clone the Repository:
+
+bash
+Copy code
+git clone git@github.com:MelissaPennington/Personal-Finance-Tracker.git
+Navigate to the Project Directory:
+
+bash
+Copy code
+cd Personal-Finance-Tracker
+Run the Program:
+
+bash
+Copy code
+python3 main.py
+This will initialize the CSV file if it doesn't exist and allow you to start logging your transactions.
+
+Track Your Finances:
+
+Add transactions to the CSV file or through the program interface (when implemented).
+Use the analysis features to tally totals by date range, category, or other criteria.
+Visualize your financial data using graphs.
+Example
+Here’s a simple example of how to use the finance tracker:
+
+python
+Copy code
+from datetime import datetime
+
+# Example transaction
+transaction = {
+    "date": datetime.now().strftime("%Y-%m-%d"),
+    "category": "Groceries",
+    "description": "Weekly grocery shopping",
+    "amount": 50.25
+}
+
+# Add the transaction to your CSV file and analyze your spending trends.
+Future Enhancements
+Add a user interface for easier data entry and visualization.
+Implement additional data analysis features such as budget tracking and expense categorization.
+Contributing
+Contributions are welcome! If you have suggestions for improvements or want to report a bug, feel free to open an issue or submit a pull request.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for more details.
