@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     # Call add_entry with the correct class name
     CSV.add_entry("20-07-2024", 125, "Income", "Salary")
-
+    
