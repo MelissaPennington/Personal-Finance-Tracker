@@ -1,6 +1,7 @@
 from datetime import datetime
 
 date_format = "%d-%m-%Y"
+CATEGORIES = {"I": "Income", "E": "Expense"}
 
 def get_date(prompt, allow_default=False):
   date_str = input(prompt)
@@ -17,12 +18,17 @@ def get_date(prompt, allow_default=False):
 def get_amount():
   try:
     amount = float(input("Enter the amount: "))
-      if amount <= 0:
+    if amount <= 0:
         raise ValueError("Amount must be a non-negative non-zero value.")
-      return amount
+    return amount
   except ValueError as e:
     print(e)
     return get_amount()
   
 def get_category():
-  pass
+  catergory = input("Enter the category ('I' for Income or 'E' for Expense): ").upper()
+  if catergory in CATEGORIES:
+    return CATEGORIES[catergory]
+  
+  print("Invalid category. Please enter 'I' for Income or 'E' for Expense.")
+  return get_category
