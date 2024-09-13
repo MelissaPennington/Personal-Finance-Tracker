@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 from datetime import datetime
-from data_entry import get_amount, get_category, get_date, get_decription
+from data_entry import get_amount, get_category, get_date, get_description
 
 class CSV:
     CSV_FILE = "finance_data.csv"
@@ -36,19 +36,30 @@ class CSV:
         try:
             with open(cls.CSV_FILE, "a", newline="") as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=cls.COLUMNS)
-                # Write the header if the file is empty
-                csvfile.seek(0, 2)  # Move cursor to the end of the file
+                csvfile.seek(0, 2) 
                 if csvfile.tell() == 0:
-                    print("Writing header to CSV file.")  # Debugging print
+                    print("Writing header to CSV file.")  
                     writer.writeheader()
                 writer.writerow(new_entry)
                 print("Entry added successfully")
         except Exception as e:
             print(f"An error occurred while writing to the file: {e}")
 
-if __name__ == "__main__":
-    CSV.initialize_csv()
+# if __name__ == "__main__":
+#     CSV.initialize_csv()
 
-    # Call add_entry with the correct class name
-    CSV.add_entry("20-07-2024", 125, "Income", "Salary")
-    
+#     # Call add_entry with the correct class name
+#     CSV.add_entry("20-07-2024", 125, "Income", "Salary")
+
+def add():
+    CSV.initialize_csv()
+    date = get_date(
+        "Enter the date of the transaction (dd-mm-yyyy) or enter for today's date: ", 
+        allow_default=True,
+    )
+    amount = get_amount()
+    category = get_category()
+    description = get_description()
+    CSV.add_entry(date, amount, category, description)
+
+add()
