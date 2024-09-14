@@ -9,10 +9,10 @@ def get_date(prompt, allow_default=False):
     return datetime.today().strftime(date_format)
   
   try:
-    valid_date =datetime.strptime(date_str, date_format)
+    valid_date = datetime.strptime(date_str, date_format)
     return valid_date.strftime(date_format)
   except ValueError:
-    print("Invalid date fromat. Please enter the date in dd-mm-yyyyy format.")
+    print("Invalid date format. Please enter the date in dd-mm-yyyy format.")
     return get_date(prompt, allow_default)
 
 def get_amount():
@@ -24,14 +24,15 @@ def get_amount():
   except ValueError as e:
     print(e)
     return get_amount()
-  
+
 def get_category():
-  catergory = input("Enter the category ('I' for Income or 'E' for Expense): ").upper()
-  if catergory in CATEGORIES:
-    return CATEGORIES[catergory]
+  category = input("Enter the category ('I' for Income or 'E' for Expense): ").upper()
+  if category in CATEGORIES:
+    return CATEGORIES[category]
   
   print("Invalid category. Please enter 'I' for Income or 'E' for Expense.")
-  return get_category
+  return get_category()
 
 def get_description():
   return input("Enter a description (optional): ")
+
