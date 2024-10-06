@@ -98,53 +98,6 @@ class CSV:
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    
-    # @classmethod
-    # def get_transactions(cls, start_date, end_date):
-    #     try:
-    #         # Read CSV file into a DataFrame
-    #         df = pd.read_csv(cls.CSV_FILE)
-
-    #         # Convert the 'date' column to datetime, invalid parsing will result in NaT
-    #         df["date"] = pd.to_datetime(df["date"], format=CSV.FORMAT, errors="coerce")
-
-    #         # Drop rows where 'date' conversion failed (i.e., NaT values)
-    #         df = df.dropna(subset=["date"])
-
-    #         # Convert the input date strings to datetime objects
-    #         start_date = datetime.strptime(start_date, CSV.FORMAT)
-    #         end_date = datetime.strptime(end_date, CSV.FORMAT)
-
-    #         # Filter transactions based on the date range
-    #         mask = (df["date"] >= start_date) & (df["date"] <= end_date)
-    #         filtered_df = df.loc[mask]
-
-    #         if filtered_df.empty:
-    #             print("No transactions found in the given date range.")
-    #         else:
-    #             print(
-    #                 f"Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:"
-    #             )
-    #             print(
-    #                 filtered_df.to_string(
-    #                     index=False, formatters={"date": lambda x: x.strftime(CSV.FORMAT)}
-    #                 )
-    #             )
-
-    #             # Summing income and expenses, assuming "Income" and "Expense" are valid categories
-    #             total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
-    #             total_expense = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
-
-    #             print("\nSummary:")
-    #             print(f"Total Income: ${total_income:.2f}")
-    #             print(f"Total Expense: ${total_expense:.2f}")
-    #             print(f"Net Savings: ${(total_income - total_expense):.2f}")
-
-    #         return filtered_df
-
-    #     except Exception as e:
-    #         print(f"An error occurred: {e}")
-
 def add():
     CSV.initialize_csv()
     date = get_date(
@@ -155,6 +108,11 @@ def add():
     category = get_category()
     description = get_description()
     CSV.add_entry(date, amount, category, description)
+
+def plot_transactions(df):
+    df.set_index("date", inplace=True)
+
+    income_df = df[df["category"] == "Income"]
 
 def main():
     while True:
