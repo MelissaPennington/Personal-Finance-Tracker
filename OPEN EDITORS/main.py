@@ -49,48 +49,101 @@ class CSV:
     @classmethod
     def get_transactions(cls, start_date, end_date):
         try:
-            # Read CSV file into a DataFrame
+        # Read CSV file into a DataFrame
             df = pd.read_csv(cls.CSV_FILE)
 
-            # Convert the 'date' column to datetime, invalid parsing will result in NaT
+        # Print the raw data to check for parsing issues
+            print("Raw CSV Data:")
+            print(df)
+
+        # Convert the 'date' column to datetime, invalid parsing will result in NaT
             df["date"] = pd.to_datetime(df["date"], format=CSV.FORMAT, errors="coerce")
 
-            # Drop rows where 'date' conversion failed (i.e., NaT values)
+        # Drop rows where 'date' conversion failed (i.e., NaT values)
             df = df.dropna(subset=["date"])
 
-            # Convert the input date strings to datetime objects
+        # Print the DataFrame after parsing to see if the dates are correct
+            print("Parsed CSV Data with Dates:")
+            print(df)
+
+        # Convert the input date strings to datetime objects
             start_date = datetime.strptime(start_date, CSV.FORMAT)
             end_date = datetime.strptime(end_date, CSV.FORMAT)
 
-            # Filter transactions based on the date range
+        # Print the start and end dates to verify correctness
+            print(f"Start Date: {start_date}")
+            print(f"End Date: {end_date}")
+
+        # Filter transactions based on the date range
             mask = (df["date"] >= start_date) & (df["date"] <= end_date)
             filtered_df = df.loc[mask]
 
             if filtered_df.empty:
                 print("No transactions found in the given date range.")
             else:
-                print(
-                    f"Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:"
-                )
-                print(
-                    filtered_df.to_string(
-                        index=False, formatters={"date": lambda x: x.strftime(CSV.FORMAT)}
-                    )
-                )
+                print(f"Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:")
+            print(filtered_df)
 
-                # Summing income and expenses, assuming "Income" and "Expense" are valid categories
-                total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
-                total_expense = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
+            # Summing income and expenses, assuming "Income" and "Expense" are valid categories
+            total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
+            total_expense = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
 
-                print("\nSummary:")
-                print(f"Total Income: ${total_income:.2f}")
-                print(f"Total Expense: ${total_expense:.2f}")
-                print(f"Net Savings: ${(total_income - total_expense):.2f}")
+            print("\nSummary:")
+            print(f"Total Income: ${total_income:.2f}")
+            print(f"Total Expense: ${total_expense:.2f}")
+            print(f"Net Savings: ${(total_income - total_expense):.2f}")
 
             return filtered_df
 
         except Exception as e:
             print(f"An error occurred: {e}")
+
+    
+    # @classmethod
+    # def get_transactions(cls, start_date, end_date):
+    #     try:
+    #         # Read CSV file into a DataFrame
+    #         df = pd.read_csv(cls.CSV_FILE)
+
+    #         # Convert the 'date' column to datetime, invalid parsing will result in NaT
+    #         df["date"] = pd.to_datetime(df["date"], format=CSV.FORMAT, errors="coerce")
+
+    #         # Drop rows where 'date' conversion failed (i.e., NaT values)
+    #         df = df.dropna(subset=["date"])
+
+    #         # Convert the input date strings to datetime objects
+    #         start_date = datetime.strptime(start_date, CSV.FORMAT)
+    #         end_date = datetime.strptime(end_date, CSV.FORMAT)
+
+    #         # Filter transactions based on the date range
+    #         mask = (df["date"] >= start_date) & (df["date"] <= end_date)
+    #         filtered_df = df.loc[mask]
+
+    #         if filtered_df.empty:
+    #             print("No transactions found in the given date range.")
+    #         else:
+    #             print(
+    #                 f"Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:"
+    #             )
+    #             print(
+    #                 filtered_df.to_string(
+    #                     index=False, formatters={"date": lambda x: x.strftime(CSV.FORMAT)}
+    #                 )
+    #             )
+
+    #             # Summing income and expenses, assuming "Income" and "Expense" are valid categories
+    #             total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
+    #             total_expense = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
+
+    #             print("\nSummary:")
+    #             print(f"Total Income: ${total_income:.2f}")
+    #             print(f"Total Expense: ${total_expense:.2f}")
+    #             print(f"Net Savings: ${(total_income - total_expense):.2f}")
+
+    #         return filtered_df
+
+    #     except Exception as e:
+    #         print(f"An error occurred: {e}")
 
 def add():
     CSV.initialize_csv()
