@@ -112,7 +112,7 @@ def add():
 def plot_transactions(df):
     df.set_index("date", inplace=True)
 
-    income_df = df[df["category"] == "Income"]
+    income_df = df[df["category"] == "Income"].resample("D").sum
 
 def main():
     while True:
