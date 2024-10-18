@@ -1,5 +1,62 @@
 date,amount,category,description
-12-07-2024,125,Income,Salary
-14-09-2024,10.0,Income,misc
-01-10-2024,13.0,Income,Ice Cream
-20-10-2024,500.0,Expense,Trip
+26-10-2024,177.15,Income,misc
+05-07-2024,318.91,Income,misc
+24-08-2024,291.59,Income,Ice Cream
+26-07-2024,1655.84,Expense,Utilities
+22-07-2024,620.26,Income,misc
+14-07-2024,727.86,Expense,Rent
+29-07-2024,561.55,Expense,Utilities
+06-09-2024,567.45,Expense,Rent
+15-10-2024,303.93,Expense,Utilities
+16-07-2024,1032.92,Expense,Entertainment
+26-10-2024,177.15,Income,misc
+05-07-2024,318.91,Income,misc
+24-08-2024,291.59,Income,Ice Cream
+26-07-2024,1655.84,Expense,Utilities
+22-07-2024,620.26,Income,misc
+14-07-2024,727.86,Expense,Rent
+29-07-2024,561.55,Expense,Utilities
+06-09-2024,567.45,Expense,Rent
+15-10-2024,303.93,Expense,Utilities
+16-07-2024,1032.92,Expense,Entertainment
+19-07-2024,350.11,Income,misc
+30-07-2024,1786.20,Expense,Entertainment
+15-07-2024,428.22,Income,misc
+23-09-2024,551.13,Income,Gift
+10-10-2024,865.04,Income,Ice Cream
+14-08-2024,285.69,Income,misc
+02-10-2024,1978.13,Expense,Trip
+01-10-2024,64.09,Income,Freelance
+09-10-2024,546.57,Expense,Groceries
+05-07-2024,265.24,Income,misc
+23-07-2024,1491.13,Expense,Trip
+15-07-2024,1621.83,Expense,Trip
+22-09-2024,1448.24,Expense,Trip
+17-09-2024,1694.31,Expense,Groceries
+07-10-2024,909.07,Income,Ice Cream
+08-08-2024,360.44,Income,misc
+28-10-2024,742.66,Income,Salary
+21-07-2024,1013.13,Expense,Trip
+04-10-2024,745.97,Income,Bonus
+04-10-2024,637.51,Income,misc
+10-09-2024,316.47,Income,Freelance
+11-10-2024,590.79,Income,Bonus
+23-07-2024,368.99,Expense,Rent
+23-07-2024,92.12,Expense,Rent
+05-10-2024,702.21,Expense,Trip
+27-08-2024,582.30,Income,Freelance
+21-09-2024,494.50,Income,Salary
+23-07-2024,492.86,Income,Bonus
+20-07-2024,1364.40,Expense,Rent
+05-10-2024,281.67,Expense,Groceries
+02-09-2024,230.93,Income,misc
+12-10-2024,587.62,Income,Salary
+17-08-2024,107.57,Expense,Trip
+28-07-2024,1541.49,Expense,Rent
+21-08-2024,159.79,Income,Gift
+20-10-2024,192.08,Income,Gift
+26-08-2024,169.21,Income,Bonus
+01-07-2024,609.24,Income,Gift
+15-07-2024,1640.82,Expense,Rent
+22-07-2024,696.48,Expense,Rent
+
