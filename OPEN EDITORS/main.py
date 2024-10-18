@@ -1,7 +1,6 @@
 import pandas as pd
 import csv
 from datetime import datetime
-from data_entry import get_amount, get_category, get_date, get_description
 import matplotlib.pyplot as plt
 
 class CSV:
@@ -34,48 +33,36 @@ class CSV:
             "category": category,
             "description": description
         }
-        print(f"Attempting to add entry: {new_entry}")  # Debugging print
+        print(f"Attempting to add entry: {new_entry}")
         try:
             with open(cls.CSV_FILE, "a", newline="") as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=cls.COLUMNS)
-                csvfile.seek(0, 2) 
+                csvfile.seek(0, 2)  # Move to the end of the file
                 if csvfile.tell() == 0:
-                    print("Writing header to CSV file.")  
+                    print("Writing header to CSV file.")
                     writer.writeheader()
                 writer.writerow(new_entry)
                 print("Entry added successfully")
         except Exception as e:
             print(f"An error occurred while writing to the file: {e}")
-    
+
     @classmethod
     def get_transactions(cls, start_date, end_date):
         try:
-        # Read CSV file into a DataFrame
+            # Read CSV file into a DataFrame
             df = pd.read_csv(cls.CSV_FILE)
 
-        # Print the raw data to check for parsing issues
-            print("Raw CSV Data:")
-            print(df)
-
-        # Convert the 'date' column to datetime, invalid parsing will result in NaT
+            # Convert the 'date' column to datetime, invalid parsing will result in NaT
             df["date"] = pd.to_datetime(df["date"], format=CSV.FORMAT, errors="coerce")
 
-        # Drop rows where 'date' conversion failed (i.e., NaT values)
+            # Drop rows where 'date' conversion failed (i.e., NaT values)
             df = df.dropna(subset=["date"])
 
-        # Print the DataFrame after parsing to see if the dates are correct
-            print("Parsed CSV Data with Dates:")
-            print(df)
-
-        # Convert the input date strings to datetime objects
+            # Convert the input date strings to datetime objects
             start_date = datetime.strptime(start_date, CSV.FORMAT)
             end_date = datetime.strptime(end_date, CSV.FORMAT)
 
-        # Print the start and end dates to verify correctness
-            print(f"Start Date: {start_date}")
-            print(f"End Date: {end_date}")
-
-        # Filter transactions based on the date range
+            # Filter transactions based on the date range
             mask = (df["date"] >= start_date) & (df["date"] <= end_date)
             filtered_df = df.loc[mask]
 
@@ -83,9 +70,9 @@ class CSV:
                 print("No transactions found in the given date range.")
             else:
                 print(f"Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:")
-            print(filtered_df)
+                print(filtered_df)
 
-            # Summing income and expenses, assuming "Income" and "Expense" are valid categories
+            # Summing income and expenses
             total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
             total_expense = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
 
@@ -101,43 +88,40 @@ class CSV:
 
 def add():
     CSV.initialize_csv()
-    date = get_date(
-        "Enter the date of the transaction (dd-mm-yyyy) or enter for today's date: ", 
-        allow_default=True,
-    )
-    amount = get_amount()
-    category = get_category()
-    description = get_description()
+    date = input("Enter the date of the transaction (dd-mm-yyyy) or enter for today's date: ")
+    amount = float(input("Enter the amount: "))
+    category = input("Enter the category (Income/Expense): ")
+    description = input("Enter a brief description: ")
     CSV.add_entry(date, amount, category, description)
 
 def plot_transactions(df):
+    # Ensure the 'date' column is the index
     df.set_index("date", inplace=True)
 
-    income_df = (
-        df[df["category"] == 'Income']
-        .resample("D")
-        .sum()
-        .reindex(df.index, fill_value=0)
-    )
-    expense_df = (
-        df[df["category"] == 'Expense']
-        .resample("D")
-        .sum()
-        .reindex(df.index, fill_value=0)
-    )
+    # Resample the data by week for clearer trends
+    income_df = df[df["category"] == 'Income'].resample("W").sum()
+    expense_df = df[df["category"] == 'Expense'].resample("W").sum()
 
+    # Plot the data
     plt.figure(figsize=(10, 5))
-    plt.plot(income_df.index, income_df["amount"], label="Income", color="g")
-    plt.plot(expense_df.index, expense_df["amount"], label="Expense", color="r")
+
+    # Plot income and expenses with different markers and styles
+    plt.plot(income_df.index, income_df["amount"], label="Income", color="g", marker='o', linestyle='-', linewidth=2)
+    plt.plot(expense_df.index, expense_df["amount"], label="Expense", color="r", marker='x', linestyle='--', linewidth=2)
+
+    # Label the axes
     plt.xlabel("Date")
     plt.ylabel("Amount")
     plt.title("Income and Expense Over Time")
+
+    # Show a legend to differentiate between income and expenses
     plt.legend()
+
+    # Add grid for easier reading of the graph
+    plt.grid(True)
+
+    # Show the plot
     plt.show()
-
-
-
-    income_df = df[df["category"] == "Income"].resample("D").sum().reindex(df.index, fill_value=0)
 
 def main():
     while True:
@@ -149,10 +133,10 @@ def main():
         if choice == "1":
             add()
         elif choice == "2":
-            start_date = get_date("Enter the start date (dd-mm-yyyy): ")
-            end_date = get_date("Enter the end date (dd-mm-yyyy): ")
+            start_date = input("Enter the start date (dd-mm-yyyy): ")
+            end_date = input("Enter the end date (dd-mm-yyyy): ")
             df = CSV.get_transactions(start_date, end_date)
-            if input("Do you want to see a plot? (y/n) ").lower() == "y":
+            if not df.empty and input("Do you want to see a plot? (y/n) ").lower() == "y":
                 plot_transactions(df)
         elif choice == "3":
             print("Exiting...")
@@ -163,3 +147,4 @@ def main():
 # This ensures the script runs only when executed directly
 if __name__ == "__main__":
     main()
+
