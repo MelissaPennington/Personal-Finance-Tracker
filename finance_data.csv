@@ -1,19 +1,12 @@
-date,amount,category,description
-26-10-2024,177.15,Income,misc
-05-07-2024,318.91,Income,misc
-24-08-2024,291.59,Income,Ice Cream
-26-07-2024,1655.84,Expense,Utilities
-22-07-2024,620.26,Income,misc
-14-07-2024,727.86,Expense,Rent
-29-07-2024,561.55,Expense,Utilities
-06-09-2024,567.45,Expense,Rent
-15-10-2024,303.93,Expense,Utilities
-16-07-2024,1032.92,Expense,Entertainment
-26-10-2024,177.15,Income,misc
-05-07-2024,318.91,Income,misc
-24-08-2024,291.59,Income,Ice Cream
-26-07-2024,1655.84,Expense,Utilities
-22-07-2024,620.26,Income,misc
-14-07-2024,727.86,Expense,Rent
-
+date,amount,category,description,currency
+26-10-2024,177.15,Income,misc,USD
+05-07-2024,318.91,Income,misc,USD
+24-08-2024,291.59,Income,Ice Cream,USD
+26-07-2024,1655.84,Expense,Utilities,USD
+22-07-2024,620.26,Income,misc,USD
+14-07-2024,727.86,Expense,Rent,USD
+29-07-2024,561.55,Expense,Utilities,USD
+06-09-2024,567.45,Expense,Rent,USD
+15-10-2024,303.93,Expense,Utilities,USD
+16-07-2024,1032.92,Expense,Entertainment,USD
 01-10-2024,10.0,Expense,Food,USD
